@@ -1,6 +1,6 @@
-# Deployment Guide - OneShop E-Commerce App
+# Deployment Guide - OWAT E-Commerce App
 
-This guide covers deploying the OneShop frontend to Netlify.
+This guide covers deploying the OWAT frontend to Netlify.
 
 ## Prerequisites
 
@@ -20,7 +20,7 @@ This guide covers deploying the OneShop frontend to Netlify.
    - Click "Add new site" → "Import an existing project"
    - Choose "Deploy with GitHub"
    - Authorize Netlify to access your GitHub repositories
-   - Select your `oneshop-ecommerce` repository (or whatever you named it)
+   - Select your `owat-ecommerce` repository (or whatever you named it)
 
 3. **Configure Build Settings**
    - Netlify will automatically detect the `netlify.toml` configuration
@@ -40,7 +40,7 @@ This guide covers deploying the OneShop frontend to Netlify.
      | `VITE_STRIPE_PUBLISHABLE_KEY` | `pk_test_...` | Your Stripe publishable key |
 
    - **Note:** For frontend-only mode (no backend), you can use placeholder values:
-     - `VITE_API_URL`: `https://api.oneshop.com/api/v1` (mock URL)
+     - `VITE_API_URL`: `https://api.owat.com/api/v1` (mock URL)
      - `VITE_STRIPE_PUBLISHABLE_KEY`: `pk_test_placeholder`
 
 5. **Redeploy with Environment Variables**

@@ -64,7 +64,7 @@ const AdminProducts = () => {
                       </div>
                     </td>
                     <td className="py-3 px-4">
-                      ₹{(product.price / 100).toFixed(2)}
+                      KSh {(product.price / 100).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
                       <span className={product.stock > 0 ? 'text-green-600' : 'text-red-600'}>

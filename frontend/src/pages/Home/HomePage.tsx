@@ -20,10 +20,10 @@ const HomePage = () => {
         <div className="container-custom">
           <div className="max-w-3xl">
             <h1 className="text-5xl font-bold mb-4">
-              Welcome to OneShop
+              Welcome to OWAT Kenya
             </h1>
             <p className="text-xl mb-8">
-              Discover amazing products at unbeatable prices. Shop now and enjoy fast, secure delivery.
+              Discover quality products at great prices. Shop online and enjoy fast delivery across Kenya - from Nairobi to Mombasa and beyond!
             </p>
             <Link to="/products" className="btn bg-white text-primary-600 hover:bg-gray-100">
               Shop Now
@@ -71,7 +71,7 @@ const HomePage = () => {
                   <h3 className="font-semibold mb-2 truncate">{product.name}</h3>
                   <div className="flex items-center justify-between">
                     <span className="text-lg font-bold text-primary-600">
-                      ₹{(product.price / 100).toFixed(2)}
+                      KSh {(product.price / 100).toFixed(2)}
                     </span>
                     {product.rating > 0 && (
                       <div className="flex items-center text-sm text-gray-600">
@@ -114,7 +114,7 @@ const HomePage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Secure Payment</h3>
               <p className="text-gray-600">
-                Safe and secure checkout with Stripe
+                Pay securely with M-Pesa, card, or cash on delivery
               </p>
             </div>
             <div className="text-center">
@@ -125,7 +125,7 @@ const HomePage = () => {
               </div>
               <h3 className="text-xl font-semibold mb-2">Fast Delivery</h3>
               <p className="text-gray-600">
-                Quick and reliable shipping to your door
+                Countrywide delivery across all 47 counties in Kenya
               </p>
             </div>
           </div>

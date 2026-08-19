@@ -93,7 +93,7 @@ export const checkout = asyncHandler(async (req: Request, res: Response) => {
           shippingCost,
           tax,
           total,
-          currency: 'INR',
+          currency: 'KES',
           paymentStatus: 'pending',
           fulfillmentStatus: 'processing',
         },
@@ -104,7 +104,7 @@ export const checkout = asyncHandler(async (req: Request, res: Response) => {
     // Create Stripe PaymentIntent
     const paymentIntent = await stripe.paymentIntents.create({
       amount: total,
-      currency: 'inr',
+      currency: 'kes',
       metadata: {
         orderId: order[0]._id.toString(),
         userId: req.userId,

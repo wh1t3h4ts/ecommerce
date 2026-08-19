@@ -4,9 +4,9 @@ const Footer = () => {
       <div className="container-custom py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
           <div>
-            <h3 className="text-xl font-bold mb-4">OneShop</h3>
+            <h3 className="text-xl font-bold mb-4">OWAT Kenya</h3>
             <p className="text-gray-400">
-              Your one-stop shop for amazing products at great prices.
+              Kenya's trusted online marketplace. Quality products delivered to your doorstep across all 47 counties.
             </p>
           </div>
           <div>
@@ -18,16 +18,23 @@ const Footer = () => {
             </ul>
           </div>
           <div>
-            <h4 className="font-semibold mb-4">Support</h4>
+            <h4 className="font-semibold mb-4">Contact Us</h4>
             <ul className="space-y-2 text-gray-400">
-              <li><a href="/faq" className="hover:text-white">FAQ</a></li>
-              <li><a href="/shipping" className="hover:text-white">Shipping</a></li>
-              <li><a href="/returns" className="hover:text-white">Returns</a></li>
+              <li>
+                <a href="mailto:alexmwangimungai254@gmail.com" className="hover:text-white">
+                  alexmwangimungai254@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:+254794555400" className="hover:text-white">
+                  +254 794 555 400
+                </a>
+              </li>
             </ul>
           </div>
         </div>
         <div className="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
-          <p>&copy; 2024 OneShop. All rights reserved.</p>
+          <p>&copy; 2024 OWAT Kenya. All rights reserved. | Serving all of Kenya 🇰🇪</p>
         </div>
       </div>
     </footer>

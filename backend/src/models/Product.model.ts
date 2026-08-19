@@ -89,7 +89,7 @@ const ProductSchema = new Schema<IProduct>(
     },
     currency: {
       type: String,
-      default: 'INR',
+      default: 'KES',
       uppercase: true,
     },
     images: [ProductImageSchema],

@@ -132,7 +132,7 @@ const ProductDetailPage = () => {
 
           <div className="flex items-center gap-4 mb-4">
             <span className="text-3xl font-bold text-primary-600">
-              ₹{(currentPrice / 100).toFixed(2)}
+              KSh {(currentPrice / 100).toFixed(2)}
             </span>
             {product.rating > 0 && (
               <div className="flex items-center">

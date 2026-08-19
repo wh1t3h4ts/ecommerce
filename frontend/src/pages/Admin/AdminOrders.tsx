@@ -80,7 +80,7 @@ const AdminOrders = () => {
                       {order.user?.name || order.user?.email || 'N/A'}
                     </td>
                     <td className="py-3 px-4 font-semibold">
-                      ₹{(order.total / 100).toFixed(2)}
+                      KSh {(order.total / 100).toFixed(2)}
                     </td>
                     <td className="py-3 px-4">
                       <span

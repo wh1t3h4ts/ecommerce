@@ -62,7 +62,7 @@ const OrderDetailPage = () => {
             <h1 className="text-3xl font-bold mb-2">Order Details</h1>
             <p className="text-gray-600">Order ID: {order._id}</p>
             <p className="text-sm text-gray-600">
-              Placed on {new Date(order.createdAt).toLocaleDateString('en-IN', {
+              Placed on {new Date(order.createdAt).toLocaleDateString('en-KE', {
                 year: 'numeric',
                 month: 'long',
                 day: 'numeric',
@@ -123,9 +123,9 @@ const OrderDetailPage = () => {
                     <p className="text-sm text-gray-600">Quantity: {item.quantity}</p>
                   </div>
                   <div className="text-right">
-                    <p className="font-semibold">₹{(item.price / 100).toFixed(2)}</p>
+                    <p className="font-semibold">KSh {(item.price / 100).toFixed(2)}</p>
                     <p className="text-sm text-gray-600">
-                      Total: ₹{((item.price * item.quantity) / 100).toFixed(2)}
+                      Total: KSh {((item.price * item.quantity) / 100).toFixed(2)}
                     </p>
                   </div>
                 </div>
@@ -142,19 +142,19 @@ const OrderDetailPage = () => {
             <div className="space-y-2 text-sm">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span>₹{(order.subtotal / 100).toFixed(2)}</span>
+                <span>KSh {(order.subtotal / 100).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
-                <span>₹{(order.shippingCost / 100).toFixed(2)}</span>
+                <span>KSh {(order.shippingCost / 100).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax</span>
-                <span>₹{(order.tax / 100).toFixed(2)}</span>
+                <span>KSh {(order.tax / 100).toFixed(2)}</span>
               </div>
               <div className="border-t pt-2 flex justify-between font-bold text-base">
                 <span>Total</span>
-                <span className="text-primary-600">₹{(order.total / 100).toFixed(2)}</span>
+                <span className="text-primary-600">KSh {(order.total / 100).toFixed(2)}</span>
               </div>
             </div>
           </div>

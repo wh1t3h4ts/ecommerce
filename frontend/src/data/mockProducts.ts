@@ -7,7 +7,7 @@ export const mockProducts: Product[] = [
     slug: 'wireless-headphones',
     description: 'Premium wireless headphones with active noise cancellation and 30-hour battery life.',
     price: 799900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=500&h=500&fit=crop',
@@ -31,7 +31,7 @@ export const mockProducts: Product[] = [
     slug: 'smart-watch',
     description: 'Feature-rich smartwatch with fitness tracking, heart rate monitoring, and mobile notifications.',
     price: 1299900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&h=500&fit=crop',
@@ -55,7 +55,7 @@ export const mockProducts: Product[] = [
     slug: 'leather-backpack',
     description: 'Stylish genuine leather backpack with laptop compartment and multiple pockets.',
     price: 899900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=500&h=500&fit=crop',
@@ -79,7 +79,7 @@ export const mockProducts: Product[] = [
     slug: 'running-shoes',
     description: 'Comfortable running shoes with superior cushioning and breathable mesh upper.',
     price: 649900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&h=500&fit=crop',
@@ -103,7 +103,7 @@ export const mockProducts: Product[] = [
     slug: 'coffee-maker',
     description: 'Programmable coffee maker with thermal carafe and auto-brew feature.',
     price: 549900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1517668808822-9ebb02f2a0e6?w=500&h=500&fit=crop',
@@ -127,7 +127,7 @@ export const mockProducts: Product[] = [
     slug: 'sunglasses',
     description: 'Polarized sunglasses with UV protection and lightweight frame.',
     price: 299900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&h=500&fit=crop',
@@ -151,7 +151,7 @@ export const mockProducts: Product[] = [
     slug: 'yoga-mat',
     description: 'Premium non-slip yoga mat with extra cushioning and carrying strap.',
     price: 349900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=500&h=500&fit=crop',
@@ -175,7 +175,7 @@ export const mockProducts: Product[] = [
     slug: 'bluetooth-speaker',
     description: 'Portable waterproof Bluetooth speaker with 360° sound and 12-hour battery.',
     price: 449900,
-    currency: 'INR',
+    currency: 'KES',
     images: [
       {
         url: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?w=500&h=500&fit=crop',

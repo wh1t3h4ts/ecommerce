@@ -83,7 +83,7 @@ const OrdersPage = () => {
                     </span>
                   </div>
                   <p className="text-sm text-gray-600">
-                    {new Date(order.createdAt).toLocaleDateString('en-IN', {
+                    {new Date(order.createdAt).toLocaleDateString('en-KE', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',
@@ -96,7 +96,7 @@ const OrdersPage = () => {
 
                 <div className="text-right">
                   <p className="text-2xl font-bold text-primary-600">
-                    ₹{(order.total / 100).toFixed(2)}
+                    KSh {(order.total / 100).toFixed(2)}
                   </p>
                 </div>
               </div>

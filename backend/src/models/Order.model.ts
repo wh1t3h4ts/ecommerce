@@ -120,7 +120,7 @@ const OrderSchema = new Schema<IOrder>(
     currency: {
       type: String,
       required: true,
-      default: 'INR',
+      default: 'KES',
       uppercase: true,
     },
     paymentStatus: {

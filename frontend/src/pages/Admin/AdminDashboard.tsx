@@ -28,7 +28,7 @@ const AdminDashboard = () => {
   const stats = [
     {
       title: 'Total Revenue',
-      value: `₹${((analytics?.revenue?.totalRevenue || 0) / 100).toFixed(2)}`,
+      value: `KSh ${((analytics?.revenue?.totalRevenue || 0) / 100).toFixed(2)}`,
       icon: DollarSign,
       color: 'bg-green-100 text-green-600',
     },
@@ -115,7 +115,7 @@ const AdminDashboard = () => {
                 </div>
                 <div className="text-right">
                   <p className="font-bold text-primary-600">
-                    ₹{(product.totalRevenue / 100).toFixed(2)}
+                    KSh {(product.totalRevenue / 100).toFixed(2)}
                   </p>
                 </div>
               </div>

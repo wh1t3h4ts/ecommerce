@@ -118,7 +118,7 @@ const CartPage = () => {
                   <p className="text-sm text-gray-600 mb-2">SKU: {item.variantSku}</p>
                 )}
                 <p className="text-primary-600 font-bold">
-                  ₹{(item.priceAtPurchase / 100).toFixed(2)}
+                  KSh {(item.priceAtPurchase / 100).toFixed(2)}
                 </p>
               </div>
 
@@ -161,7 +161,7 @@ const CartPage = () => {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-semibold">₹{(subtotal / 100).toFixed(2)}</span>
+                <span className="font-semibold">KSh {(subtotal / 100).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
@@ -172,7 +172,7 @@ const CartPage = () => {
             <div className="border-t pt-4 mb-6">
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span className="text-primary-600">₹{(subtotal / 100).toFixed(2)}</span>
+                <span className="text-primary-600">KSh {(subtotal / 100).toFixed(2)}</span>
               </div>
             </div>
 

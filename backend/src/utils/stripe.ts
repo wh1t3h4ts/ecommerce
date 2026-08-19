@@ -11,17 +11,17 @@ export const stripe = new Stripe(config.stripe.secretKey, {
 });
 
 export const calculateTax = (subtotal: number): number => {
-  // Simple tax calculation - 18% GST for India
+  // 16% VAT for Kenya
   // In production, use proper tax calculation based on location
-  return Math.round(subtotal * 0.18);
+  return Math.round(subtotal * 0.16);
 };
 
 export const calculateShipping = (items: number, total: number): number => {
   // Simple shipping calculation
-  // Free shipping over ₹1000, otherwise ₹50
+  // Free shipping over KSh 1000, otherwise KSh 50
   if (total >= 100000) {
-    // ₹1000 in paise
+    // KSh 1000 in cents
     return 0;
   }
-  return 5000; // ₹50 in paise
+  return 5000; // KSh 50 in cents
 };

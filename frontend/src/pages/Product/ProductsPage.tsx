@@ -157,7 +157,7 @@ const ProductsPage = () => {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-lg font-bold text-primary-600">
-                    ₹{(product.price / 100).toFixed(2)}
+                    KSh {(product.price / 100).toFixed(2)}
                   </span>
                   {product.rating > 0 && (
                     <div className="flex items-center text-sm text-gray-600">

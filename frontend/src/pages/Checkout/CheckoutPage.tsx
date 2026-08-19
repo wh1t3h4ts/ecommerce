@@ -15,7 +15,7 @@ const CheckoutPage = () => {
     city: '',
     state: '',
     postalCode: '',
-    country: 'India',
+    country: 'Kenya',
     phone: '',
   });
 
@@ -59,8 +59,8 @@ const CheckoutPage = () => {
     0
   );
 
-  const shipping = subtotal >= 100000 ? 0 : 5000; // Free shipping over ₹1000
-  const tax = Math.round(subtotal * 0.18); // 18% GST
+  const shipping = subtotal >= 100000 ? 0 : 5000; // Free shipping over KSh 1000
+  const tax = Math.round(subtotal * 0.16); // 16% VAT (Kenya)
   const total = subtotal + shipping + tax;
 
   if (cartLoading) {
@@ -119,13 +119,14 @@ const CheckoutPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium mb-1">State *</label>
+                  <label className="block text-sm font-medium mb-1">County *</label>
                   <input
                     type="text"
                     name="state"
                     value={shippingAddress.state}
                     onChange={handleChange}
                     className="input"
+                    placeholder="e.g., Nairobi, Mombasa, Kisumu"
                     required
                   />
                 </div>
@@ -164,6 +165,7 @@ const CheckoutPage = () => {
                   value={shippingAddress.phone}
                   onChange={handleChange}
                   className="input"
+                  placeholder="+254 7XX XXX XXX"
                   required
                 />
               </div>
@@ -191,7 +193,7 @@ const CheckoutPage = () => {
                     {item.product?.name} x {item.quantity}
                   </span>
                   <span className="font-semibold">
-                    ₹{((item.priceAtPurchase * item.quantity) / 100).toFixed(2)}
+                    KSh {((item.priceAtPurchase * item.quantity) / 100).toFixed(2)}
                   </span>
                 </div>
               ))}
@@ -200,24 +202,24 @@ const CheckoutPage = () => {
             <div className="border-t pt-4 space-y-2">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-semibold">₹{(subtotal / 100).toFixed(2)}</span>
+                <span className="font-semibold">KSh {(subtotal / 100).toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Shipping</span>
                 <span className="font-semibold">
-                  {shipping === 0 ? 'FREE' : `₹${(shipping / 100).toFixed(2)}`}
+                  {shipping === 0 ? 'FREE' : `KSh ${(shipping / 100).toFixed(2)}`}
                 </span>
               </div>
               <div className="flex justify-between">
-                <span className="text-gray-600">Tax (GST 18%)</span>
-                <span className="font-semibold">₹{(tax / 100).toFixed(2)}</span>
+                <span className="text-gray-600">Tax (VAT 16%)</span>
+                <span className="font-semibold">KSh {(tax / 100).toFixed(2)}</span>
               </div>
             </div>
 
             <div className="border-t mt-4 pt-4">
               <div className="flex justify-between text-lg font-bold">
                 <span>Total</span>
-                <span className="text-primary-600">₹{(total / 100).toFixed(2)}</span>
+                <span className="text-primary-600">KSh {(total / 100).toFixed(2)}</span>
               </div>
             </div>
 
