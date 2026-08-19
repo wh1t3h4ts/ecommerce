@@ -1,14 +1,24 @@
 import Stripe from 'stripe';
 import { config } from '../config/env';
 
-if (!config.stripe.secretKey) {
-  throw new Error('STRIPE_SECRET_KEY is not defined');
-}
+// Check if Stripe is properly configured
+const isStripeConfigured = 
+  config.stripe.secretKey && 
+  config.stripe.secretKey !== 'sk_test_placeholder' &&
+  config.stripe.secretKey.startsWith('sk_');
 
-export const stripe = new Stripe(config.stripe.secretKey, {
-  apiVersion: '2024-12-18.acacia',
-  typescript: true,
-});
+// Initialize Stripe only if properly configured
+export const stripe = isStripeConfigured 
+  ? new Stripe(config.stripe.secretKey, {
+      apiVersion: '2024-12-18.acacia',
+      typescript: true,
+    })
+  : null;
+
+// Helper to check if Stripe is available
+export const isStripeAvailable = (): boolean => {
+  return stripe !== null;
+};
 
 export const calculateTax = (subtotal: number): number => {
   // 16% VAT for Kenya
