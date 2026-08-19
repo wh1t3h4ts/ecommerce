@@ -6,6 +6,7 @@ import { Order } from '../models/Order.model';
 import { Cart } from '../models/Cart.model';
 import { Product } from '../models/Product.model';
 import { stripe, calculateTax, calculateShipping } from '../utils/stripe';
+import { config } from '../config/env';
 
 export const checkout = asyncHandler(async (req: Request, res: Response) => {
   if (!req.userId) {
@@ -25,12 +26,26 @@ export const checkout = asyncHandler(async (req: Request, res: Response) => {
   let subtotal = 0;
   const orderItems: any[] = [];
 
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  // Only use transactions if MongoDB supports them (replica set)
+  let session: mongoose.ClientSession | null = null;
+  let useTransactions = false;
+
+  try {
+    // Try to start a session - will fail on standalone MongoDB
+    session = await mongoose.startSession();
+    session.startTransaction();
+    useTransactions = true;
+  } catch (err) {
+    // Standalone MongoDB doesn't support transactions, continue without them
+    console.log('MongoDB transactions not available, proceeding without transactions');
+    session = null;
+    useTransactions = false;
+  }
 
   try {
     for (const cartItem of cart.items) {
-      const product = await Product.findById(cartItem.product._id).session(session);
+      const product = await Product.findById(cartItem.product._id)
+        .session(useTransactions ? session : null);
 
       if (!product || !product.isActive) {
         throw ApiError.badRequest(`Product ${cartItem.product.name} is no longer available`);
@@ -63,7 +78,7 @@ export const checkout = asyncHandler(async (req: Request, res: Response) => {
         product.stock -= cartItem.quantity;
       }
 
-      await product.save({ session });
+      await product.save(useTransactions ? { session } : {});
 
       subtotal += price * cartItem.quantity;
 
@@ -98,45 +113,63 @@ export const checkout = asyncHandler(async (req: Request, res: Response) => {
           fulfillmentStatus: 'processing',
         },
       ],
-      { session }
+      useTransactions ? { session } : {}
     );
 
-    // Create Stripe PaymentIntent
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: total,
-      currency: 'kes',
-      metadata: {
-        orderId: order[0]._id.toString(),
-        userId: req.userId,
-      },
-      automatic_payment_methods: {
-        enabled: true,
-      },
-    });
+    let paymentIntent = null;
+    let clientSecret = null;
 
-    order[0].stripePaymentIntentId = paymentIntent.id;
-    await order[0].save({ session });
+    // Create Stripe PaymentIntent if Stripe is configured
+    if (stripe) {
+      try {
+        paymentIntent = await stripe.paymentIntents.create({
+          amount: total,
+          currency: 'kes',
+          metadata: {
+            orderId: order[0]._id.toString(),
+            userId: req.userId,
+          },
+          automatic_payment_methods: {
+            enabled: true,
+          },
+        });
+
+        order[0].stripePaymentIntentId = paymentIntent.id;
+        clientSecret = paymentIntent.client_secret;
+        await order[0].save(useTransactions ? { session } : {});
+      } catch (stripeError: any) {
+        console.error('Stripe error:', stripeError.message);
+        // Continue without Stripe if it fails
+      }
+    }
 
     // Clear cart
     cart.items = [];
-    await cart.save({ session });
+    await cart.save(useTransactions ? { session } : {});
 
-    await session.commitTransaction();
+    if (useTransactions && session) {
+      await session.commitTransaction();
+    }
 
     res.status(201).json({
       success: true,
       message: 'Order created successfully',
       data: {
         order: order[0],
-        clientSecret: paymentIntent.client_secret,
-        publishableKey: stripe.publicKey,
+        clientSecret,
+        publishableKey: config.stripe.publishableKey || null,
+        stripeConfigured: stripe !== null,
       },
     });
   } catch (error) {
-    await session.abortTransaction();
+    if (useTransactions && session) {
+      await session.abortTransaction();
+    }
     throw error;
   } finally {
-    session.endSession();
+    if (session) {
+      session.endSession();
+    }
   }
 });
 
@@ -229,12 +262,23 @@ export const cancelOrder = asyncHandler(async (req: Request, res: Response) => {
   await order.save();
 
   // Restore stock
-  const session = await mongoose.startSession();
-  session.startTransaction();
+  let session: mongoose.ClientSession | null = null;
+  let useTransactions = false;
+
+  try {
+    session = await mongoose.startSession();
+    session.startTransaction();
+    useTransactions = true;
+  } catch (err) {
+    console.log('MongoDB transactions not available, proceeding without transactions');
+    session = null;
+    useTransactions = false;
+  }
 
   try {
     for (const item of order.items) {
-      const product = await Product.findById(item.product).session(session);
+      const product = await Product.findById(item.product)
+        .session(useTransactions ? session : null);
       if (product) {
         if (item.sku) {
           const variant = product.variants.find((v) => v.sku === item.sku);
@@ -244,16 +288,22 @@ export const cancelOrder = asyncHandler(async (req: Request, res: Response) => {
         } else {
           product.stock += item.quantity;
         }
-        await product.save({ session });
+        await product.save(useTransactions ? { session } : {});
       }
     }
 
-    await session.commitTransaction();
+    if (useTransactions && session) {
+      await session.commitTransaction();
+    }
   } catch (error) {
-    await session.abortTransaction();
+    if (useTransactions && session) {
+      await session.abortTransaction();
+    }
     throw error;
   } finally {
-    session.endSession();
+    if (session) {
+      session.endSession();
+    }
   }
 
   res.json({
