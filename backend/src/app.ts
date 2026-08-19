@@ -22,10 +22,40 @@ const app: Application = express();
 
 // Security middleware
 app.use(helmet());
+
+// CORS configuration - allow Vercel deployments and local development
+const allowedOrigins = [
+  config.frontendUrl,
+  'http://localhost:5173',
+  'http://localhost:3000',
+  'https://owatkenya.vercel.app',
+  /\.vercel\.app$/, // Allow all Vercel preview deployments
+];
+
 app.use(
   cors({
-    origin: config.frontendUrl,
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like mobile apps or curl)
+      if (!origin) return callback(null, true);
+      
+      // Check if origin is allowed
+      const isAllowed = allowedOrigins.some((allowedOrigin) => {
+        if (typeof allowedOrigin === 'string') {
+          return origin === allowedOrigin;
+        }
+        // Handle regex patterns
+        return allowedOrigin.test(origin);
+      });
+
+      if (isAllowed) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
     credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
   })
 );
 
