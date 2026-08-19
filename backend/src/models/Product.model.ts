@@ -46,7 +46,6 @@ const ProductVariantSchema = new Schema<IProductVariant>({
   sku: {
     type: String,
     required: true,
-    unique: true,
   },
   attributes: {
     type: Schema.Types.Mixed,

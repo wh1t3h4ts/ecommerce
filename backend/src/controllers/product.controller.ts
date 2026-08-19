@@ -24,7 +24,23 @@ export const getProducts = asyncHandler(async (req: Request, res: Response) => {
   }
 
   if (category) {
-    filter.category = category;
+    // Check if category is an ObjectId or a slug
+    const isObjectId = /^[0-9a-fA-F]{24}$/.test(category as string);
+    
+    if (isObjectId) {
+      filter.category = category;
+    } else {
+      // Assume it's a slug, need to find category by slug first
+      const { Category } = require('../models/Category.model');
+      const categoryDoc = await Category.findOne({ slug: category });
+      
+      if (categoryDoc) {
+        filter.category = categoryDoc._id;
+      } else {
+        // If category not found, set filter to non-existent ID to return empty results
+        filter.category = null;
+      }
+    }
   }
 
   if (minPrice || maxPrice) {
